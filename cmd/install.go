@@ -15,6 +15,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/lokesh-balla/gvm/pkg/osc"
 	"github.com/muesli/termenv"
 	"github.com/spf13/cobra"
 	bolt "go.etcd.io/bbolt"
@@ -77,6 +78,9 @@ func fetchLatestVersion() (string, error) {
 }
 
 func drawProgressBar(output *termenv.Output, file string, width int, percent float64) {
+	// setting OSC 9;4 for terminal progress if supported
+	osc.SetOSCProgress(percent)
+
 	if width < 0 || width > 120 {
 		width = 120
 	}
