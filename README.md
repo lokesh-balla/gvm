@@ -52,6 +52,7 @@ gvm provides the following commands:
 - **list** - List available/installed versions
 - **use** - Switch between Go versions
 - **uninstall** - Remove installed versions
+- **update** - Update gvm to the latest version
 
 For detailed information about each command, visit the [docs](https://lokesh-balla.github.io/gvm/commands/).
 

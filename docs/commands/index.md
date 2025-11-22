@@ -18,6 +18,7 @@ gvm provides a simple command-line interface for managing multiple Go versions. 
 | [list](list) | List installed and available versions | `gvm list --all` |
 | [use](use) | Switch to a specific version | `gvm use go1.19` |
 | [uninstall](uninstall) | Remove an installed version | `gvm uninstall go1.18` |
+| [update](update) | Update gvm to the latest version | `gvm update` |
 
 ## Common Usage Patterns
 
