@@ -46,7 +46,7 @@ type githubRelease struct {
 
 func updateGVM() error {
 	// 1. Get current version
-	currentVerStr := strings.Split(rootCmd.Version, " ")[0]
+	currentVerStr, _, _ := strings.Cut(rootCmd.Version, " ")
 	currentVer, err := version.NewVersion(currentVerStr)
 	if err != nil {
 		// If we can't parse current version (e.g. dev build), assume we want to update if user asks
