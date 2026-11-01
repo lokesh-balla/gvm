@@ -1,23 +1,23 @@
 on:
   release:
     types: [created]
-name: Handle Release
+permissions:
+  contents: write # Required for GITHUB_TOKEN to upload assets to releases
 jobs:
   generate:
     name: Create release-artifacts
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v5
-      - name: Generate the artifacts
-        uses: skx/github-action-build@master
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Set up Go
+        uses: actions/setup-go@v7
         with:
-          builder: .github/build
+          go-version-file: 'go.mod'
+      - name: Build artifacts
+        run: make version="${{ github.event.release.tag_name }}"
+      - name: Upload binaries to release
         env:
-          VERSION_TAG: ${{ github.event.release.tag_name }}
-      - name: Upload the artifacts
-        uses: skx/github-action-publish-binaries@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: "./bin/gvm_*"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" ./bin/gvm_* --clobber
